@@ -8,7 +8,7 @@ import fetchArticlesList from "../services/ticketsApi";
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    console.log(1);
+    console.log(1111);
     dispatch(fetchArticlesList());
   }, []);
   return (
