@@ -5,15 +5,19 @@ import "./App.scss";
 import { AppDispatch } from "../store/store";
 import fetchArticlesList from "../services/ticketsApi";
 
+import ArticlesList from "./ArticlesList";
+import Header from "./Header";
+
 const App = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    console.log(1111);
-    dispatch(fetchArticlesList());
+    dispatch(fetchArticlesList(0));
   }, []);
   return (
     <div>
-      <div>1111</div>
+      <Header />
+      <ArticlesList />
+      <div>App Content</div>
     </div>
   );
 };

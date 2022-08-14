@@ -1,12 +1,11 @@
 @font-face {
-    font-family: 'Open Sans';
-    src: url('./fonts/OpenSans-SemiBold.ttf') format('ttf');
-    font-weight: 600;
-    font-display: swap;
+    font-family: 'Inter';
+    src: url('./fonts/Inter-Regular.otf') format('opentype');
+    font-weight: 400;
     font-style: normal;
 }
 
-@font-face {
+/* @font-face {
     font-family: 'Open Sans';
     src: url('./fonts/OpenSans-Bold.ttf') format('ttf');
     font-weight: 700;
@@ -20,4 +19,4 @@
     font-weight: 400;
     font-display: swap;
     font-style: normal;
-}
+} */

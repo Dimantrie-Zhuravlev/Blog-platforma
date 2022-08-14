@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
-import getArticles from "./reducers/getArticles";
+import getArticles from "./slices/getArticles";
 
 /* eslint-disable no-underscore-dangle */
 export const store = configureStore({

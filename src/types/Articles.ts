@@ -18,6 +18,12 @@ export interface IArticle {
   author: IAuthor;
 }
 
+export interface IStateArticles {
+  articles: {
+    articles: Array<IArticle>;
+  };
+}
+
 export default interface IListArticles {
   articles: Array<IArticle>;
   articlesCount?: number;
