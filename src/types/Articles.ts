@@ -18,12 +18,7 @@ export interface IArticle {
   author: IAuthor;
 }
 
-export interface IStateArticles {
-  articles: {
-    articles: Array<IArticle>;
-  };
-}
-
+// Ответ с сервера
 export default interface IListArticles {
   articles: Array<IArticle>;
   articlesCount?: number;

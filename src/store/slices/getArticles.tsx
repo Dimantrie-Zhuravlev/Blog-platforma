@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import fetchArticlesList from "../../services/ticketsApi";
-import IListArticles from "../../types/Articles";
+import { IStateArticle } from "../../types/StateRedux";
 
 const initialState = {
   articles: [],
-} as IListArticles;
+  totalArticles: 0,
+  loading: false,
+} as IStateArticle;
 
 export const articlesList = createSlice({
   name: "articles",
@@ -14,13 +16,16 @@ export const articlesList = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchArticlesList.pending, (state) => {
-        console.log(state, "загрузка");
+        state.loading = true;
       })
       .addCase(fetchArticlesList.fulfilled, (state, action) => {
         state.articles = action.payload.articles;
+        state.totalArticles = action.payload.articlesCount;
+        state.loading = false;
       })
       .addCase(fetchArticlesList.rejected, (state) => {
         console.log(state.articles, "ошибка");
+        state.loading = false;
       });
   },
 });

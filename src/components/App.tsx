@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./App.scss";
+import { Spin, Pagination } from "antd";
 
 import { AppDispatch } from "../store/store";
 import fetchArticlesList from "../services/ticketsApi";
+import { IStateArticles } from "../types/StateRedux";
 
 import ArticlesList from "./ArticlesList";
 import Header from "./Header";
@@ -13,11 +15,41 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchArticlesList(0));
   }, []);
+
+  const loading = useSelector(
+    (state: IStateArticles) => state.articles.loading
+  );
+  const totalResults = useSelector(
+    (state: IStateArticles) => state.articles.totalArticles
+  );
+  const [currentPage, changeCurrentPage] = useState(1);
+  const reloadArticles = () => {
+    changeCurrentPage(currentPage + 1);
+    dispatch(fetchArticlesList(currentPage));
+  };
+
+  const SpinnerContent = loading ? (
+    <div style={{ textAlign: "center" }}>
+      <Spin size="large" />
+    </div>
+  ) : (
+    <React.Fragment>
+      <ArticlesList />
+      <div className="pagination">
+        <Pagination
+          current={currentPage}
+          pageSize={20}
+          total={totalResults}
+          onChange={reloadArticles}
+          showSizeChanger={false}
+        />
+      </div>
+    </React.Fragment>
+  );
   return (
     <div>
       <Header />
-      <ArticlesList />
-      <div>App Content</div>
+      {SpinnerContent}
     </div>
   );
 };

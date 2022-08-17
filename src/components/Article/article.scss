@@ -50,4 +50,20 @@
 
         }
     }
+    &-author-info {
+        margin-right:12px;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        align-items:center;
+        &__name {
+        font-size: 18px;
+        line-height: 28px;
+        }
+        &__date {
+        font-size: 12px;
+        line-height: 22px;
+        color: rgba(0, 0, 0, 0.5);
+        }
+    }
 }

@@ -1,12 +1,14 @@
 import React from "react";
 import { HeartOutlined } from "@ant-design/icons";
+import dateFormat from "dateformat";
 
 import "./article.scss";
 
 import { IArticle } from "../../types/Articles";
 
 const Article = (props: { article: IArticle }) => {
-  const { title, favoritesCount, tagList, description, author } = props.article;
+  const { title, favoritesCount, tagList, description, author, updatedAt } =
+    props.article;
   const tags = tagList.map((elem) => (
     <React.Fragment key={elem}>
       <span className="article-tag">{elem.slice(0, 20)}</span>
@@ -25,7 +27,12 @@ const Article = (props: { article: IArticle }) => {
           <div>{tags}</div>
         </div>
         <div className="article-profile">
-          <div>11</div>
+          <div className="article-author-info">
+            <span className="article-author-info__name">{author.username}</span>
+            <span className="article-author-info__date">
+              {dateFormat(updatedAt, "mediumDate")}
+            </span>
+          </div>
           <div className="article-profile__icon">
             <img src={author.image} />
           </div>
