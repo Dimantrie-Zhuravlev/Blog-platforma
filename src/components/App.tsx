@@ -23,9 +23,9 @@ const App = () => {
     (state: IStateArticles) => state.articles.totalArticles
   );
   const [currentPage, changeCurrentPage] = useState(1);
-  const reloadArticles = () => {
-    changeCurrentPage(currentPage + 1);
-    dispatch(fetchArticlesList(currentPage));
+  const reloadArticles = (page: number) => {
+    changeCurrentPage(page);
+    dispatch(fetchArticlesList(page - 1));
   };
 
   const SpinnerContent = loading ? (
