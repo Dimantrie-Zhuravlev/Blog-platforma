@@ -5,18 +5,16 @@
     font-style: normal;
 }
 
-/* @font-face {
-    font-family: 'Open Sans';
-    src: url('./fonts/OpenSans-Bold.ttf') format('ttf');
-    font-weight: 700;
-    font-display: swap;
+@font-face {
+    font-family: 'Roboto';
+    src: url('./fonts/Roboto-Medium.ttf') format('ttf');
+    font-weight: bold;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Open Sans';
-    src: url('./fonts/OpenSans-Regular.ttf') format('ttf');
+    font-family: 'Roboto';
+    src: url('./fonts/Roboto-Regular.ttf') format('ttf');
     font-weight: 400;
-    font-display: swap;
     font-style: normal;
-} */
+}

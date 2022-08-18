@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./App.scss";
 import { Spin, Pagination } from "antd";
 
-import { AppDispatch } from "../store/store";
-import fetchArticlesList from "../services/ticketsApi";
-import { IStateArticles } from "../types/StateRedux";
+import { AppDispatch } from "../../store/store";
+import fetchArticlesList from "../../services/ticketsApi";
+import { IStateArticles } from "../../types/StateRedux";
+import ArticlesList from "../../components/ArticlesList";
 
-import ArticlesList from "./ArticlesList";
-import Header from "./Header";
-
-const App = () => {
+const PageArticles = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(fetchArticlesList(0));
@@ -46,12 +43,7 @@ const App = () => {
       </div>
     </React.Fragment>
   );
-  return (
-    <div>
-      <Header />
-      {SpinnerContent}
-    </div>
-  );
+  return <div>{SpinnerContent}</div>;
 };
 
-export default App;
+export default PageArticles;
