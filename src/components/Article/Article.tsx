@@ -29,7 +29,7 @@ const Article = (props: { article: IArticle }) => {
       <div className="article-header">
         <div>
           <div className="article-top">
-            <Link to={`/articles/${slug}`}>
+            <Link to={`/articles/${slug}`} state={{ item: props.article }}>
               <span className="article-title">{title}</span>
             </Link>
             <HeartOutlined style={{ fontSize: "18px", marginRight: "5px" }} />

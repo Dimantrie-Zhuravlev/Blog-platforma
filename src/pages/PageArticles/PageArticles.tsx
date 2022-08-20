@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Spin, Pagination } from "antd";
 
@@ -9,9 +9,6 @@ import ArticlesList from "../../components/ArticlesList";
 
 const PageArticles = () => {
   const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    dispatch(fetchArticlesList(0));
-  }, []);
 
   const loading = useSelector(
     (state: IStateArticles) => state.articles.loading

@@ -1,0 +1,28 @@
+.fullArticle-container {
+    width:870px;
+    box-sizing:border-box;
+    margin:26px auto;
+    background-color:white;
+    padding:17px 14px 150px 14px;
+    .fullarticle {
+        width:100%;
+        box-sizing:border-box;
+        background-color:white;
+        margin:0 auto;
+        padding:15px 14px 0 19px;
+        &-top {
+            margin-bottom:10px;
+        }
+    }
+
+}
+.fullarticle-description {
+    margin-top:16px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    color: rgba(0, 0, 0, 0.5);
+    margin-bottom:25px;
+}
