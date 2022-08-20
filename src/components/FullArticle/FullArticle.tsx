@@ -1,23 +1,25 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { HeartOutlined } from "@ant-design/icons";
 import dateFormat from "dateformat";
 import Markdown from "react-markdown";
+import { useSelector } from "react-redux";
 
-import { IArticle } from "../../types/Articles";
+import { IStateArticles } from "../../types/StateRedux";
 
 import "./FullArticle.scss";
 
-interface LocationState {
-  item: IArticle;
-}
-
 const FullArticle = () => {
-  console.log(useParams());
-  // const slugPar = useParams();
-  // - объект для получения свойств из адресной строки
-  const location = useLocation();
-  const { item } = location.state as LocationState;
+  const { slug } = useParams();
+  console.log(slug);
+  const item = useSelector(
+    (state: IStateArticles) => state.articles.articles
+  ).filter((elem) => elem.slug === slug)[0];
+  const ReduxStore = useSelector(
+    (state: IStateArticles) => state.articles.articles
+  );
+  console.log(ReduxStore, item);
+
   const { title, favoritesCount, tagList, description, author, updatedAt } =
     item;
   const tags =

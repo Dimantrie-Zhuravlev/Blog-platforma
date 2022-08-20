@@ -8,6 +8,7 @@ import Header from "../components/Header";
 import fetchArticlesList from "../services/ticketsApi";
 
 import PageSignUp from "./PageSignUp";
+import PageSignIn from "./PageSignIn";
 import PageHome from "./PageHome";
 import PageArticles from "./PageArticles";
 import UnknownPage from "./unknownPage";
@@ -19,12 +20,13 @@ const App = () => {
     dispatch(fetchArticlesList(0));
   }, []);
   return (
-    <div>
+    <div className="up">
       <Routes>
         <Route path="/" element={<Header />}>
           <Route path="/articles" element={<PageArticles />}></Route>
           <Route path="/articles/:slug" element={<FullPage />}></Route>
           <Route path="/sign-up" element={<PageSignUp />}></Route>
+          <Route path="/sign-in" element={<PageSignIn />}></Route>
           <Route index element={<PageHome />}></Route>
           <Route path="*" element={<UnknownPage />}></Route>
         </Route>

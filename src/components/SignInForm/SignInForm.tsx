@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-import "./SignUpForm.scss";
+import "./SignInForm.scss";
 
-const SignUpForm = () => {
+const SignInForm = () => {
   return (
     <div className="SignUp-container">
-      <h2>Create new account</h2>
+      {/* <h2>Create new account</h2>
       <form>
         <label>
           Username:
@@ -20,16 +19,13 @@ const SignUpForm = () => {
         <label>Repeat Password</label>
         <input type="text" name="passwordRepeat" placeholder="Password" />
       </form>
-      <div className="sign-up-agree">
-        <input type="checkbox" className="check-form"></input>
-        <label>I agree to the processing of my personal information</label>
-      </div>
       <button className="sign-up-submit">Create</button>
       <div className="sign-up-refuse">
         Already have an account? <Link to="/sign-in"> Sign In.</Link>
-      </div>
+      </div> */}
+      11
     </div>
   );
 };
 
-export default SignUpForm;
+export default SignInForm;
