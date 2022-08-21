@@ -1,24 +1,18 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./App.scss";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
-import { AppDispatch } from "../store/store";
 import Header from "../components/Header";
-import fetchArticlesList from "../services/ticketsApi";
 
-import PageSignUp from "./PageSignUp";
-import PageSignIn from "./PageSignIn";
-import PageHome from "./PageHome";
-import PageArticles from "./PageArticles";
-import UnknownPage from "./unknownPage";
-import FullPage from "./FullPage";
+import PageSignUp from "./PageSignUp/PageSignUp";
+import PageSignIn from "./PageSignIn/SignInPage";
+import PageHome from "./PageHome/Home";
+import PageArticles from "./PageArticles/PageArticles";
+import UnknownPage from "./unknownPage/unknownPage";
+import FullPage from "./FullPage/FullPage";
+import PageEditProfile from "./PageEditProfile/PageEditProfile";
 
 const App = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    dispatch(fetchArticlesList(0));
-  }, []);
   return (
     <div className="up">
       <Routes>
@@ -27,6 +21,7 @@ const App = () => {
           <Route path="/articles/:slug" element={<FullPage />}></Route>
           <Route path="/sign-up" element={<PageSignUp />}></Route>
           <Route path="/sign-in" element={<PageSignIn />}></Route>
+          <Route path="/profile" element={<PageEditProfile />}></Route>
           <Route index element={<PageHome />}></Route>
           <Route path="*" element={<UnknownPage />}></Route>
         </Route>

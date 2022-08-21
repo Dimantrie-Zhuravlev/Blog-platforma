@@ -1,9 +1,17 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { IStateUser } from "../../types/StateRedux";
 
 import classes from "./Header.module.scss";
+import HeaderIn from "./HeaderOnline/HeaderOnline";
+import HeaderOnline from "./HeaderWithoutAuth/HeaderSign";
 
 const Header = () => {
+  const isAuth = useSelector((state: IStateUser) => state.user.user.username);
+  const Auth = isAuth === "" ? HeaderOnline : HeaderIn;
+
   return (
     <React.Fragment>
       <div className={classes["header-container"]}>
@@ -11,15 +19,10 @@ const Header = () => {
           <div className={classes.realworld}>Realworld Blog</div>
         </Link>
         <div className={classes.autorisation}>
-          <Link to="/sign-in">
-            <button className={classes["header-button"]}>Sign In</button>
-          </Link>
-          <Link to="/sign-up">
-            <button className={classes["header-button"]}>Sign Up</button>
-          </Link>
+          <Auth></Auth>
         </div>
       </div>
-      <Outlet />;
+      <Outlet />
     </React.Fragment>
   );
 };

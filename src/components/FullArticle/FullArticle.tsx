@@ -11,14 +11,12 @@ import "./FullArticle.scss";
 
 const FullArticle = () => {
   const { slug } = useParams();
-  console.log(slug);
   const item = useSelector(
     (state: IStateArticles) => state.articles.articles
   ).filter((elem) => elem.slug === slug)[0];
-  const ReduxStore = useSelector(
-    (state: IStateArticles) => state.articles.articles
-  );
-  console.log(ReduxStore, item);
+  // const ReduxStore = useSelector(
+  //   (state: IStateArticles) => state.articles.articles
+  // );
 
   const { title, favoritesCount, tagList, description, author, updatedAt } =
     item;

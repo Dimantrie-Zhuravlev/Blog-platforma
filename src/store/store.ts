@@ -13,6 +13,7 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import getArticles from "./slices/getArticles";
+import userInform from "./slices/userParametres";
 
 const persistConfig = {
   key: "root",
@@ -20,6 +21,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+  user: userInform,
   articles: getArticles,
 });
 

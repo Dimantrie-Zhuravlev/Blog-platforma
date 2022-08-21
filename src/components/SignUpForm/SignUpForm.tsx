@@ -1,30 +1,152 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import cn from "classnames";
 
 import "./SignUpForm.scss";
+import { ISignUp } from "../../types/FormTypes";
+import { fetchregisterUser } from "../../services/usersAuthentication";
 
 const SignUpForm = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+    watch,
+  } = useForm<ISignUp>({ mode: "onSubmit" });
+  const onSubmit = handleSubmit((data) => {
+    alert(JSON.stringify(data));
+    console.log(data);
+    const user = {
+      user: {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      },
+    };
+    fetchregisterUser(user);
+    reset();
+  });
   return (
     <div className="SignUp-container">
       <h2>Create new account</h2>
-      <form>
+      <form onSubmit={onSubmit}>
+        {/* username */}
         <label>
           Username:
-          <input type="text" name="username" placeholder="Username" />
+          <input
+            className={cn({ "error-input": errors?.username?.message })}
+            type="text"
+            placeholder="Username"
+            {...register("username", {
+              required: "Поле обязательно к заполнению",
+              minLength: {
+                value: 3,
+                message: "Your user name needs to be at least 3 characters.",
+              },
+              maxLength: {
+                value: 20,
+                message: "Your user name must be no more than 20 characters.",
+              },
+              pattern: {
+                // eslint-disable-next-line no-useless-escape
+                value: /^[a-z]{3,20}$/i,
+                message: "invalid user name",
+              },
+            })}
+          />
         </label>
-
-        <label>Email address</label>
-        <input type="text" name="email" placeholder="Email address" />
-        <label>Password</label>
-        <input type="text" name="password" placeholder="Password" />
-        <label>Repeat Password</label>
-        <input type="text" name="passwordRepeat" placeholder="Password" />
+        <div>
+          {errors?.username && (
+            <p>{`${errors?.username?.message}` || "Error!"}</p>
+          )}
+        </div>
+        {/* email */}
+        <label>
+          Email address
+          <input
+            className={cn({ "error-input": errors?.email?.message })}
+            type="text"
+            placeholder="Email address"
+            {...register("email", {
+              required: "Поле обязательно к заполнению",
+              pattern: {
+                // eslint-disable-next-line no-useless-escape
+                value: /^[\w-\.]+@[\w-]+\.[rucom]{2,3}$/i,
+                message: "invalid email address",
+              },
+            })}
+          />
+        </label>
+        <div>
+          {<p>{errors?.email?.message}</p> || <p>{"Error in text email!"}</p>}
+        </div>
+        {/* password */}
+        <label>
+          Password
+          <input
+            type="text"
+            placeholder="Password"
+            className={cn({ "error-input": errors?.password?.message })}
+            {...register("password", {
+              required: "Поле обязательно к заполнению",
+              minLength: {
+                value: 6,
+                message: "Your password needs to be at least 6 characters.",
+              },
+              maxLength: {
+                value: 40,
+                message: "Your user name must be no more than 40 characters.",
+              },
+            })}
+          />
+        </label>
+        <div>
+          {errors?.password && (
+            <p>{`${errors?.password?.message}` || "Error!"}</p>
+          )}
+        </div>
+        {/* just one password */}
+        <label>
+          Repeat Password
+          <input
+            type="text"
+            placeholder="Password"
+            className={cn({ "error-input": errors?.passwordRepeat?.message })}
+            {...register("passwordRepeat", {
+              required: "Поле обязательно к заполнению",
+              validate: (val: string) => watch("password") === val,
+            })}
+          />
+        </label>
+        <div>
+          {errors?.passwordRepeat && <p>{"Passwords do not match!"}</p>}
+        </div>
+        {/* check */}
+        <div className="sign-up-agree">
+          <input
+            type="checkbox"
+            className={cn({
+              checkForm: true,
+              "error-input": errors?.checkForm?.message,
+            })}
+            {...register("checkForm", {
+              required: "вы не поставили галочку",
+            })}
+          ></input>
+          <label>I agree to the processing of my personal information</label>
+        </div>
+        <div>{errors?.checkForm && <p>{errors?.checkForm.message}</p>}</div>
+        {/* button submit */}
+        <input
+          type="submit"
+          className="sign-up-submit"
+          value={`Create`}
+          // disabled={!isValid}
+        ></input>
       </form>
-      <div className="sign-up-agree">
-        <input type="checkbox" className="check-form"></input>
-        <label>I agree to the processing of my personal information</label>
-      </div>
-      <button className="sign-up-submit">Create</button>
+
       <div className="sign-up-refuse">
         Already have an account? <Link to="/sign-in"> Sign In.</Link>
       </div>
