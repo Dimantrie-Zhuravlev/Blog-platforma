@@ -10,7 +10,11 @@ const initialState = {
 export const userInfo = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    unLogin(state) {
+      state.user = { email: "", token: "", username: "", bio: "", image: "" };
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchGetUserInfo.pending, () => {
@@ -26,4 +30,5 @@ export const userInfo = createSlice({
   },
 });
 
+export const { unLogin } = userInfo.actions;
 export default userInfo.reducer;

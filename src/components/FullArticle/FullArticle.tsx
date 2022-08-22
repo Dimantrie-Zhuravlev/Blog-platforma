@@ -1,25 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { HeartOutlined } from "@ant-design/icons";
 import dateFormat from "dateformat";
 import Markdown from "react-markdown";
-import { useSelector } from "react-redux";
 
-import { IStateArticles } from "../../types/StateRedux";
+import { fetchArticlesSlug } from "../../services/Articles";
+import { IArticle } from "../../types/Articles";
 
 import "./FullArticle.scss";
 
 const FullArticle = () => {
+  const [arr, setArr] = useState<IArticle>({
+    slug: "",
+    title: "",
+    description: "",
+    body: "",
+    tagList: [""],
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    favorited: false,
+    favoritesCount: 0,
+    author: { username: "", bio: "", image: "", following: false },
+  });
   const { slug } = useParams();
-  const item = useSelector(
-    (state: IStateArticles) => state.articles.articles
-  ).filter((elem) => elem.slug === slug)[0];
-  // const ReduxStore = useSelector(
-  //   (state: IStateArticles) => state.articles.articles
-  // );
+  const slugnew = slug === undefined ? "" : slug;
 
-  const { title, favoritesCount, tagList, description, author, updatedAt } =
-    item;
+  useEffect(() => {
+    fetchArticlesSlug(slugnew).then((res) => {
+      setArr(res.article);
+    });
+  }, []);
+
+  const {
+    title,
+    favoritesCount,
+    tagList,
+    description,
+    author,
+    updatedAt,
+    body,
+  } = arr;
   const tags =
     tagList &&
     tagList.map((elem) => (
@@ -55,7 +75,7 @@ const FullArticle = () => {
           </div>
         </div>
         <div className="fullarticle-description">{description}</div>
-        <Markdown>{item.body}</Markdown>
+        <Markdown>{body}</Markdown>
       </div>
     </div>
   );

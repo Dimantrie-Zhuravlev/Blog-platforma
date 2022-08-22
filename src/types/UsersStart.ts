@@ -12,6 +12,17 @@ export interface IPostexhistingUser {
   };
 }
 
+export interface IPutEditProfile {
+  user: {
+    username: string;
+    email: string;
+    token?: string;
+    password?: string;
+    bio?: string;
+    image?: string;
+  };
+}
+
 export interface IUser {
   email: string;
   token: string;

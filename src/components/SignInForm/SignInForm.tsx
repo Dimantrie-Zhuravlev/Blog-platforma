@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import cn from "classnames";
 import { useDispatch } from "react-redux";
@@ -14,18 +14,21 @@ import "./SignInForm.scss";
 
 const SignInForm = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
   const inLogin = async (user: {
     user: {
       email: string;
       password: string;
     };
   }) => {
-    console.log(user);
     fetchExistingUser(user).then((res) => {
       console.log(res);
       dispatch(fetchGetUserInfo(res.user.token));
+      return navigate(`/articles`);
     });
   };
+
   const {
     register,
     formState: { errors },

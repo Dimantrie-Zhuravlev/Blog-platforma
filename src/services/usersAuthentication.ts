@@ -5,6 +5,7 @@ import {
   IPostUser,
   IPostUserResponse,
   IPostexhistingUser,
+  IPutEditProfile,
 } from "../types/UsersStart";
 
 export const fetchregisterUser = (user: IPostUser) =>
@@ -31,10 +32,7 @@ export const fetchExistingUser = (user: IPostexhistingUser) =>
     body: JSON.stringify(user),
   })
     .then((res) => res.json())
-    .then((res) => {
-      console.log(res);
-      return res;
-    });
+    .then((res) => res);
 
 export const fetchGetUserInfo = createAsyncThunk<IPostUserResponse, string>(
   "users/usersInfo",
@@ -49,5 +47,17 @@ export const fetchGetUserInfo = createAsyncThunk<IPostUserResponse, string>(
       .then((res) => res.json())
       .then((res) => res)
 );
+
+export const fetchEditProfile = (user: IPutEditProfile, token: string) =>
+  fetch(`https://blog.kata.academy/api/user`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(user),
+  })
+    .then((res) => res.json())
+    .then((res) => res);
 
 export default fetchregisterUser;

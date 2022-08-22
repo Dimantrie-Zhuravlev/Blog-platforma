@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import fetchArticlesList from "../../services/ticketsApi";
+import fetchArticlesList from "../../services/Articles";
 import { IStateArticle } from "../../types/StateRedux";
 
 const initialState = {

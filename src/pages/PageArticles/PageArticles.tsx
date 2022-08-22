@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Spin, Pagination } from "antd";
 
 import { AppDispatch } from "../../store/store";
-import fetchArticlesList from "../../services/ticketsApi";
+import fetchArticlesList from "../../services/Articles";
 import { IStateArticles } from "../../types/StateRedux";
 import ArticlesList from "../../components/ArticlesList";
 

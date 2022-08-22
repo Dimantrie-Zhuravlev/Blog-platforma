@@ -11,6 +11,9 @@
         font-size: 14px;
         line-height: 22px;
         margin-right:20px;
+        &:hover {
+            cursor:pointer;
+        }
     }
     .name {
         font-size: 18px;
@@ -28,6 +31,9 @@
         font-size: 18px;
         line-height: 28px;
         color: rgba(0, 0, 0, 0.75);
+        &:hover {
+            cursor:pointer;
+        }
     }
     .img {
         width:46px;

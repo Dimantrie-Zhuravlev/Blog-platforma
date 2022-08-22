@@ -13,4 +13,9 @@ const fetchArticlesList = createAsyncThunk<IListArticles, number>(
       })
 );
 
+export const fetchArticlesSlug = (slug: string) =>
+  fetch(`https://blog.kata.academy/api/articles/${slug}`)
+    .then((res) => res.json())
+    .then((res) => res);
+
 export default fetchArticlesList;

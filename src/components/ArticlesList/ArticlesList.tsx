@@ -10,7 +10,6 @@ const ArticlesList = () => {
   const arrayArticles = useSelector(
     (state: IStateArticles) => state.articles.articles
   );
-  console.log(arrayArticles);
   const articles = arrayArticles.map((elem) => (
     <React.Fragment key={MaxId++}>
       <Article article={elem} />
