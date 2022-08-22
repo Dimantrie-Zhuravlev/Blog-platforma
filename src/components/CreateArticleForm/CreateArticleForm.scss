@@ -4,7 +4,6 @@
         width:940px;
         box-sizing:border-box;
         margin:0 auto;
-        height:1000px;
         background-color:white;
         padding:48px 32px;
         .new-article__submit {
@@ -38,4 +37,13 @@
         border: 1px solid #D9D9D9;
         border-radius: 4px;
     }
+    p {
+        color:red;
+        margin:0;
+        padding:0;
+    }
+    .no-margin {
+        margin-bottom:5px;
+    }
+
 }

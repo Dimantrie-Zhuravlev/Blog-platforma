@@ -2,10 +2,12 @@ import React from "react";
 import "./CreateArticleForm.scss";
 // import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import cn from "classnames";
 
+import { IStateUser } from "../../types/StateRedux";
 import { ICreateArticle } from "../../types/FormTypes";
-// import { fetchregisterUser } from "../../services/usersAuthentication";
+import { fetchPostNewArticle } from "../../services/Articles";
 
 const CreateArticleForm = () => {
   const {
@@ -14,15 +16,20 @@ const CreateArticleForm = () => {
     handleSubmit,
     reset,
   } = useForm<ICreateArticle>({ mode: "onSubmit" });
+
+  const token = useSelector((state: IStateUser) => state.user.user.token);
+
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    // const user = {
-    //   user: {
-    //     username: data.username,
-    //     email: data.email,
-    //     password: data.password,
-    //   },
-    // };
+    const post = {
+      article: {
+        title: data.title,
+        description: data.description,
+        body: data.text,
+        tagList: [data.tags],
+      },
+    };
+    console.log(post, token);
+    fetchPostNewArticle(post, token);
     reset();
   });
   return (
@@ -34,7 +41,10 @@ const CreateArticleForm = () => {
           <label>
             Title
             <input
-              className={cn({ "error-input": errors?.title?.message })}
+              className={cn(
+                { "error-input": errors?.title?.message },
+                { "no-margin": errors?.title?.message }
+              )}
               type="text"
               placeholder="Title"
               {...register("title", {
@@ -44,13 +54,13 @@ const CreateArticleForm = () => {
                   message: "Your user name needs to be at least 1 characters.",
                 },
                 maxLength: {
-                  value: 20,
-                  message: "Your user name must be no more than 20 characters.",
+                  value: 40,
+                  message: "Your user name must be no more than 40 characters.",
                 },
                 pattern: {
                   // eslint-disable-next-line no-useless-escape
-                  value: /^[a-z]{1,20}$/i,
-                  message: "invalid user name",
+                  value: /^[a-z, а-я]{1,40}$/i,
+                  message: "invalid type pattern",
                 },
               })}
             />
@@ -62,15 +72,18 @@ const CreateArticleForm = () => {
           <label>
             Short Desription
             <input
-              className={cn({ "error-input": errors?.description?.message })}
+              className={cn(
+                { "error-input": errors?.description?.message },
+                { "no-margin": errors?.description?.message }
+              )}
               type="text"
               placeholder="Short Desription"
               {...register("description", {
                 required: "Поле обязательно к заполнению",
                 pattern: {
                   // eslint-disable-next-line no-useless-escape
-                  value: /^[a-z]{1,20}$/i,
-                  message: "invalid email address",
+                  value: /^[a-z, а-я]{1,40}$/i,
+                  message: "invalid type pattern",
                 },
                 minLength: {
                   value: 1,
@@ -90,7 +103,10 @@ const CreateArticleForm = () => {
             Text
             <textarea
               placeholder="Password"
-              className={cn({ "error-input": errors?.text?.message })}
+              className={cn(
+                { "error-input": errors?.text?.message },
+                { "no-margin": errors?.text?.message }
+              )}
               {...register("text", {
                 required: "Поле обязательно к заполнению",
                 minLength: {
@@ -113,7 +129,10 @@ const CreateArticleForm = () => {
             <input
               type="text"
               placeholder="Tags"
-              className={cn({ "error-input": errors?.tags?.message })}
+              className={cn(
+                { "error-input": errors?.tags?.message },
+                { "no-margin": errors?.tags?.message }
+              )}
               {...register("tags", {
                 required: "Поле обязательно к заполнению",
               })}

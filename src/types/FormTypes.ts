@@ -24,3 +24,19 @@ export interface ICreateArticle {
   text: string;
   tags: string;
 }
+
+export interface IPostNewArticle {
+  article: {
+    title: string;
+    description: string;
+    body: string;
+    tagList: Array<string>;
+  };
+}
+
+export interface IPostexhistingUser {
+  user: {
+    email: string;
+    password: string;
+  };
+}

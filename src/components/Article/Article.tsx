@@ -19,7 +19,7 @@ const Article = (props: { article: IArticle }) => {
   const tags =
     tagList &&
     tagList.map((elem) => (
-      <React.Fragment key={elem}>
+      <React.Fragment key={`${author.username} ${Math.random()}`}>
         <span className="article-tag">{elem.slice(0, 20)}</span>
         {/* сократим длину на всякий случай */}
       </React.Fragment>
