@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { HeartOutlined } from "@ant-design/icons";
 import dateFormat from "dateformat";
 import { Link } from "react-router-dom";
@@ -21,6 +21,8 @@ const Article = (props: { article: IArticle }) => {
     slug,
     favorited,
   } = props.article;
+  const [stateFavor, chengeStateFavor] = useState(favorited);
+  const [likes, changeLikes] = useState(favoritesCount);
   const tags =
     tagList &&
     tagList.map((elem) => (
@@ -40,24 +42,24 @@ const Article = (props: { article: IArticle }) => {
             </Link>
             <span
               onClick={() => {
-                console.log(favorited);
-                console.log(author.following);
-                console.log(slug, token);
-                if (!favorited) {
+                if (!stateFavor) {
                   fetchAddLike(slug, token);
+                  changeLikes(likes + 1);
                 } else {
                   fetchDeleteLike(slug, token);
+                  changeLikes(likes - 1);
                 }
+                chengeStateFavor(!stateFavor);
               }}
               className={cn({
-                "article-withLike": favorited,
-                "article-withOutLike": !favorited,
+                "article-withLike": stateFavor,
+                "article-withOutLike": !stateFavor,
               })}
             >
               <HeartOutlined />
             </span>
 
-            <span className="article-favorite">{favoritesCount}</span>
+            <span className="article-favorite">{likes}</span>
           </div>
           <div>{tags}</div>
         </div>
