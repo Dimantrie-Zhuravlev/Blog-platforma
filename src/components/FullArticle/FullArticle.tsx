@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { HeartOutlined } from "@ant-design/icons";
 import dateFormat from "dateformat";
 import Markdown from "react-markdown";
+import { useSelector } from "react-redux";
 
+import ModalWindow from "../ModalWinow";
 import { fetchArticlesSlug } from "../../services/Articles";
 import { IArticle } from "../../types/Articles";
+import { IStateUser } from "../../types/StateRedux";
 
 import "./FullArticle.scss";
 
 const FullArticle = () => {
+  const AuthorName = useSelector(
+    (state: IStateUser) => state.user.user.username
+  );
   const [arr, setArr] = useState<IArticle>({
     slug: "",
     title: "",
@@ -22,6 +28,7 @@ const FullArticle = () => {
     favoritesCount: 0,
     author: { username: "", bio: "", image: "", following: false },
   });
+  const [isModal, changeModal] = useState(false);
   const { slug } = useParams();
   const slugnew = slug === undefined ? "" : slug;
 
@@ -59,22 +66,48 @@ const FullArticle = () => {
               <span className="article-favorite">{favoritesCount}</span>
             </div>
             <div>{tags}</div>
+            <div className="fullarticle-description">{description}</div>
           </div>
-          <div className="article-profile">
-            <div className="article-author-info">
-              <span className="article-author-info__name">
-                {author.username}
-              </span>
-              <span className="article-author-info__date">
-                {dateFormat(updatedAt, "mediumDate")}
-              </span>
+          <div style={{ position: "relative" }}>
+            <div className="article-profile">
+              <div className="article-author-info">
+                <span className="article-author-info__name">
+                  {author.username}
+                </span>
+                <span className="article-author-info__date">
+                  {dateFormat(updatedAt, "mediumDate")}
+                </span>
+              </div>
+              <div className="article-profile__icon">
+                <img src={author.image} />
+              </div>
             </div>
-            <div className="article-profile__icon">
-              <img src={author.image} />
-            </div>
+            {AuthorName === author.username && (
+              <div className="edit__container">
+                <Link
+                  to={`/${slug}/edit-article`}
+                  state={{ title, description, body }}
+                >
+                  <button className="edit-article">Edit</button>
+                </Link>
+                <button
+                  onClick={() => changeModal(!isModal)}
+                  className="delete-article"
+                >
+                  Delete
+                </button>
+                <div className={"modalWindow"}>
+                  {isModal && (
+                    <ModalWindow
+                      changeState={(res: boolean) => changeModal(res)}
+                      slug={slug}
+                    ></ModalWindow>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
-        <div className="fullarticle-description">{description}</div>
         <Markdown>{body}</Markdown>
       </div>
     </div>

@@ -75,4 +75,19 @@
         color: rgba(0, 0, 0, 0.5);
         }
     }
+    .article-withLike {
+        font-size: 18px;
+         margin-right: 5px;
+         color:red;
+         :hover {
+            cursor:pointer;
+         }
+    }
+    .article-withOutLike {
+        font-size: 18px;
+        margin-right: 5px;
+        :hover {
+            cursor:pointer;
+         }
+    }
 }

@@ -4,12 +4,31 @@ import "./CreateArticleForm.scss";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import cn from "classnames";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 
 import { IStateUser } from "../../types/StateRedux";
 import { ICreateArticle } from "../../types/FormTypes";
-import { fetchPostNewArticle } from "../../services/Articles";
+import { fetchPostNewArticle, fetchEditArticle } from "../../services/Articles";
+
+interface ILocation {
+  title: string;
+  description: string;
+  body: string;
+}
 
 const CreateArticleForm = () => {
+  const navigate = useNavigate();
+  const { slug } = useParams();
+  const location = useLocation();
+  const stateLoc = location.state as ILocation;
+  // console.log(stateLoc.title);
+  const NamePage =
+    location.state === null
+      ? "Create New Article"
+      : `Edit Article "${stateLoc.title}"`;
+  const defailtDescr = location.state === null ? "" : stateLoc.description;
+  const defailtBody = location.state === null ? "" : stateLoc.body;
+  const defaultTitle = location.state === null ? "" : stateLoc.title;
   const {
     register,
     formState: { errors },
@@ -19,7 +38,7 @@ const CreateArticleForm = () => {
 
   const token = useSelector((state: IStateUser) => state.user.user.token);
 
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     const post = {
       article: {
         title: data.title,
@@ -28,14 +47,28 @@ const CreateArticleForm = () => {
         tagList: [data.tags],
       },
     };
-    console.log(post, token);
-    fetchPostNewArticle(post, token);
+    if (location.state === null) await fetchPostNewArticle(post, token);
+    else {
+      const slug1 = slug === undefined ? "" : slug;
+      await fetchEditArticle(
+        {
+          article: {
+            title: data.title,
+            description: data.description,
+            body: data.text,
+          },
+        },
+        token,
+        slug1
+      );
+    }
     reset();
+    return navigate("/articles");
   });
   return (
     <div className="new-article">
       <div className="new-article__container">
-        <h2>Create New Article</h2>
+        <h2>{NamePage}</h2>
         <form onSubmit={onSubmit}>
           {/* title */}
           <label>
@@ -47,6 +80,7 @@ const CreateArticleForm = () => {
               )}
               type="text"
               placeholder="Title"
+              defaultValue={defaultTitle}
               {...register("title", {
                 required: "Поле обязательно к заполнению",
                 minLength: {
@@ -78,6 +112,7 @@ const CreateArticleForm = () => {
               )}
               type="text"
               placeholder="Short Desription"
+              defaultValue={defailtDescr}
               {...register("description", {
                 required: "Поле обязательно к заполнению",
                 pattern: {
@@ -102,7 +137,8 @@ const CreateArticleForm = () => {
           <label>
             Text
             <textarea
-              placeholder="Password"
+              placeholder="Text"
+              defaultValue={defailtBody}
               className={cn(
                 { "error-input": errors?.text?.message },
                 { "no-margin": errors?.text?.message }
@@ -111,11 +147,7 @@ const CreateArticleForm = () => {
                 required: "Поле обязательно к заполнению",
                 minLength: {
                   value: 6,
-                  message: "Your password needs to be at least 6 characters.",
-                },
-                maxLength: {
-                  value: 40,
-                  message: "Your user name must be no more than 40 characters.",
+                  message: "Your text to be at least 6 characters.",
                 },
               })}
             />
@@ -124,27 +156,30 @@ const CreateArticleForm = () => {
             {errors?.text && <p>{`${errors?.text?.message}` || "Error!"}</p>}
           </div>
           {/* just one password */}
-          <label>
-            Tags
-            <input
-              type="text"
-              placeholder="Tags"
-              className={cn(
-                { "error-input": errors?.tags?.message },
-                { "no-margin": errors?.tags?.message }
-              )}
-              {...register("tags", {
-                required: "Поле обязательно к заполнению",
-              })}
-            />
-          </label>
-          <div>{errors?.tags && <p>{"Passwords do not match!"}</p>}</div>
+          {location.state === null && (
+            <>
+              <label>
+                Tags
+                <input
+                  type="text"
+                  placeholder="Tags"
+                  className={cn(
+                    { "error-input": errors?.tags?.message },
+                    { "no-margin": errors?.tags?.message }
+                  )}
+                  {...register("tags", {
+                    required: "Поле обязательно к заполнению",
+                  })}
+                />
+              </label>
+              <div>{errors?.tags && <p>{"need more tags"}</p>}</div>
+            </>
+          )}
           {/* button submit */}
           <input
             type="submit"
             className="new-article__submit"
             value={`Send`}
-            // disabled={!isValid}
           ></input>
         </form>
       </div>

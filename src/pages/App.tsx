@@ -24,6 +24,10 @@ const App = () => {
           <Route path="/sign-in" element={<PageSignIn />}></Route>
           <Route path="/myprofile/edit" element={<PageEditProfile />}></Route>
           <Route path="/new-article" element={<PageNewArticle />}></Route>
+          <Route
+            path="/:slug/edit-article"
+            element={<PageNewArticle />}
+          ></Route>
           <Route index element={<PageHome />}></Route>
           <Route path="*" element={<UnknownPage />}></Route>
         </Route>

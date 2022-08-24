@@ -4,7 +4,7 @@ import { Spin, Pagination } from "antd";
 
 import { AppDispatch } from "../../store/store";
 import fetchArticlesList from "../../services/Articles";
-import { IStateArticles } from "../../types/StateRedux";
+import { IStateArticles, IStateUser } from "../../types/StateRedux";
 import ArticlesList from "../../components/ArticlesList";
 
 const PageArticles = () => {
@@ -16,13 +16,15 @@ const PageArticles = () => {
   const totalResults = useSelector(
     (state: IStateArticles) => state.articles.totalArticles
   );
+  const token = useSelector((state: IStateUser) => state.user.user.token);
   const [currentPage, changeCurrentPage] = useState(1);
+  // const token = () => useSelector((state: IStateUser) => state.user.user.token);
   const reloadArticles = (page: number) => {
     changeCurrentPage(page);
-    dispatch(fetchArticlesList(page - 1));
+    dispatch(fetchArticlesList({ page: page - 1, token }));
   };
   useEffect(() => {
-    dispatch(fetchArticlesList(0));
+    dispatch(fetchArticlesList({ page: 0, token }));
   }, []);
 
   const SpinnerContent = loading ? (

@@ -18,6 +18,7 @@ import userInform from "./slices/userParametres";
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["articles"],
 };
 
 const rootReducer = combineReducers({

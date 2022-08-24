@@ -4,6 +4,7 @@
     margin:26px auto;
     background-color:white;
     padding:17px 14px 150px 14px;
+    display:relative;
     .fullarticle {
         width:100%;
         box-sizing:border-box;
@@ -13,6 +14,39 @@
         &-top {
             margin-bottom:10px;
         }
+    }
+    .edit__container {
+        margin-top:30px;
+        .delete-article {
+            font-size: 14px;
+            line-height: 22px;
+            color: #F5222D;
+            padding:6px 10px;
+            border: 1px solid #F5222D;
+            border-radius: 5px;
+            background-color:transparent;
+            &:hover {
+                cursor:pointer;
+            }
+        }
+        .edit-article {
+            margin-right: 12px;
+            border: 1px solid #52C41A;
+            border-radius: 5px;
+            padding:6px 20px;
+            font-size: 14px;
+            line-height: 22px;
+            color: #52C41A;
+            background-color:transparent;
+            &:hover {
+                cursor:pointer;
+            }
+        }
+    }
+    .modalWindow {
+        position:absolute;
+        left:80px;
+        bottom:-100px;
     }
 
 }

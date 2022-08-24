@@ -21,7 +21,6 @@ export const userInfo = createSlice({
         console.log(1);
       })
       .addCase(fetchGetUserInfo.fulfilled, (state, action) => {
-        console.log(action);
         state.user = action.payload.user;
       })
       .addCase(fetchGetUserInfo.rejected, (state) => {

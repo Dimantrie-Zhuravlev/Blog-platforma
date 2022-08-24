@@ -34,6 +34,14 @@ export interface IPostNewArticle {
   };
 }
 
+export interface IEditArticle {
+  article: {
+    title: string;
+    description: string;
+    body: string;
+  };
+}
+
 export interface IPostexhistingUser {
   user: {
     email: string;
