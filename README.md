@@ -1,4 +1,4 @@
-# https://blog-platforma-rhdx9y64p-dimantrie-zhuravlev.vercel.app
+# https://blog-platforma-knmrao14e-dimantrie-zhuravlev.vercel.app
 
 email:tankerlord@mail.ru
 password:555555(после смены пароля)
