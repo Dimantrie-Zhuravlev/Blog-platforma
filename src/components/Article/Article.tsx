@@ -42,14 +42,16 @@ const Article = (props: { article: IArticle }) => {
             </Link>
             <span
               onClick={() => {
-                if (!stateFavor) {
-                  fetchAddLike(slug, token);
-                  changeLikes(likes + 1);
-                } else {
-                  fetchDeleteLike(slug, token);
-                  changeLikes(likes - 1);
+                if (token !== "") {
+                  if (!stateFavor) {
+                    fetchAddLike(slug, token);
+                    changeLikes(likes + 1);
+                  } else {
+                    fetchDeleteLike(slug, token);
+                    changeLikes(likes - 1);
+                  }
+                  chengeStateFavor(!stateFavor);
                 }
-                chengeStateFavor(!stateFavor);
               }}
               className={cn({
                 "article-withLike": stateFavor,

@@ -75,14 +75,16 @@ const FullArticle = () => {
                   "article-withOutLike": !stateFavor,
                 })}
                 onClick={() => {
-                  if (!stateFavor) {
-                    fetchAddLike(slug!, token);
-                    changeLikes(likes + 1);
-                  } else {
-                    fetchDeleteLike(slug!, token);
-                    changeLikes(likes - 1);
+                  if (token !== "") {
+                    if (!stateFavor) {
+                      fetchAddLike(slug!, token);
+                      changeLikes(likes + 1);
+                    } else {
+                      fetchDeleteLike(slug!, token);
+                      changeLikes(likes - 1);
+                    }
+                    changeFavor(!stateFavor);
                   }
-                  changeFavor(!stateFavor);
                 }}
               >
                 {stateFavor ? <HeartFilled /> : <HeartOutlined />}
