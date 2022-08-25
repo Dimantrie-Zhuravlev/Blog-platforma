@@ -48,6 +48,25 @@
         left:80px;
         bottom:-100px;
     }
+    .article-withLike {
+        font-size: 18px;
+         margin-right: 5px;
+         color:red;
+         font-size: 18px;
+         margin-right: 5px;
+         :hover {
+            cursor:pointer;
+         }
+    }
+    .article-withOutLike {
+        font-size: 18px;
+        margin-right: 5px;
+        font-size: 18px;
+        margin-right: 5px;
+        :hover {
+            cursor:pointer;
+         }
+    }
 
 }
 .fullarticle-description {

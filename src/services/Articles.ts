@@ -25,8 +25,14 @@ const fetchArticlesList = createAsyncThunk<
 );
 
 // получение определенного артикла по слагу
-export const fetchArticlesSlug = (slug: string) =>
-  fetch(`https://blog.kata.academy/api/articles/${slug}`)
+export const fetchArticlesSlug = (slug: string, token: string) =>
+  fetch(`https://blog.kata.academy/api/articles/${slug}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((res) => res.json())
     .then((res) => res);
 
@@ -65,4 +71,5 @@ export const fetchDeleteArticle = (token: string, slug: string) =>
       Authorization: `Bearer ${token}`,
     },
   }).then((res) => res.json());
+
 export default fetchArticlesList;

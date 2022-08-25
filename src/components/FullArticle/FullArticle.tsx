@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { HeartOutlined } from "@ant-design/icons";
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import dateFormat from "dateformat";
 import Markdown from "react-markdown";
 import { useSelector } from "react-redux";
+import cn from "classnames";
 
 import ModalWindow from "../ModalWinow";
+import { fetchAddLike, fetchDeleteLike } from "../../services/favorites";
 import { fetchArticlesSlug } from "../../services/Articles";
 import { IArticle } from "../../types/Articles";
 import { IStateUser } from "../../types/StateRedux";
@@ -16,6 +18,7 @@ const FullArticle = () => {
   const AuthorName = useSelector(
     (state: IStateUser) => state.user.user.username
   );
+  const token = useSelector((state: IStateUser) => state.user.user.token);
   const [arr, setArr] = useState<IArticle>({
     slug: "",
     title: "",
@@ -30,13 +33,6 @@ const FullArticle = () => {
   });
   const [isModal, changeModal] = useState(false);
   const { slug } = useParams();
-  const slugnew = slug === undefined ? "" : slug;
-
-  useEffect(() => {
-    fetchArticlesSlug(slugnew).then((res) => {
-      setArr(res.article);
-    });
-  }, []);
 
   const {
     title,
@@ -46,7 +42,11 @@ const FullArticle = () => {
     author,
     updatedAt,
     body,
+    favorited,
   } = arr;
+  const [stateFavor, changeFavor] = useState(favorited);
+  const [likes, changeLikes] = useState(favoritesCount);
+
   const tags =
     tagList &&
     tagList.map((elem) => (
@@ -55,6 +55,13 @@ const FullArticle = () => {
         {/* сократим длину на всякий случай */}
       </React.Fragment>
     ));
+  useEffect(() => {
+    fetchArticlesSlug(slug!, token).then((res) => {
+      setArr(res.article);
+    });
+  }, []);
+  useEffect(() => changeFavor(favorited), [favorited]);
+  useEffect(() => changeLikes(favoritesCount), [favoritesCount]);
   return (
     <div className="fullArticle-container">
       <div className="fullarticle">
@@ -62,8 +69,25 @@ const FullArticle = () => {
           <div>
             <div className="fullarticle-top">
               <span className="article-title">{title}</span>
-              <HeartOutlined style={{ fontSize: "18px", marginRight: "5px" }} />
-              <span className="article-favorite">{favoritesCount}</span>
+              <span
+                className={cn({
+                  "article-withLike": stateFavor,
+                  "article-withOutLike": !stateFavor,
+                })}
+                onClick={() => {
+                  if (!stateFavor) {
+                    fetchAddLike(slug!, token);
+                    changeLikes(likes + 1);
+                  } else {
+                    fetchDeleteLike(slug!, token);
+                    changeLikes(likes - 1);
+                  }
+                  changeFavor(!stateFavor);
+                }}
+              >
+                {stateFavor ? <HeartFilled /> : <HeartOutlined />}
+              </span>
+              <span className="article-favorite">{likes}</span>
             </div>
             <div>{tags}</div>
             <div className="fullarticle-description">{description}</div>

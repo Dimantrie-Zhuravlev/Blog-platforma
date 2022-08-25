@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HeartOutlined } from "@ant-design/icons";
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import dateFormat from "dateformat";
 import { Link } from "react-router-dom";
 import "./article.scss";
@@ -56,7 +56,7 @@ const Article = (props: { article: IArticle }) => {
                 "article-withOutLike": !stateFavor,
               })}
             >
-              <HeartOutlined />
+              {stateFavor ? <HeartFilled /> : <HeartOutlined />}
             </span>
 
             <span className="article-favorite">{likes}</span>

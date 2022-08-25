@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.scss";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import Header from "../components/Header";
 
 import PageSignUp from "./PageSignUp/PageSignUp";
 import PageSignIn from "./PageSignIn/SignInPage";
-import PageHome from "./PageHome/Home";
+// import PageHome from "./PageHome/Home";
 import PageArticles from "./PageArticles/PageArticles";
 import UnknownPage from "./unknownPage/unknownPage";
 import FullPage from "./FullPage/FullPage";
@@ -28,7 +28,7 @@ const App = () => {
             path="/:slug/edit-article"
             element={<PageNewArticle />}
           ></Route>
-          <Route index element={<PageHome />}></Route>
+          <Route path="/" element={<Navigate to="/articles" />}></Route>
           <Route path="*" element={<UnknownPage />}></Route>
         </Route>
       </Routes>
