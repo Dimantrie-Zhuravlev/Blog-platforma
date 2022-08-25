@@ -30,7 +30,6 @@ const CreateArticleForm = () => {
   const defailtDescr = location.state === null ? "" : stateLoc.description;
   const defailtBody = location.state === null ? "" : stateLoc.body;
   const defaultTitle = location.state === null ? "" : stateLoc.title;
-  const defaultTags = location.state === null ? "" : stateLoc.title;
   const {
     register,
     formState: { errors },

@@ -25,12 +25,14 @@ const Article = (props: { article: IArticle }) => {
   const [likes, changeLikes] = useState(favoritesCount);
   const tags =
     tagList &&
-    tagList.map((elem) => (
-      <React.Fragment key={`${author.username} ${Math.random()}`}>
-        <span className="article-tag">{elem.slice(0, 20)}</span>
-        {/* сократим длину на всякий случай */}
-      </React.Fragment>
-    ));
+    tagList
+      .map((elem) => (
+        <React.Fragment key={`${author.username} ${Math.random()}`}>
+          <span className="article-tag">{elem.slice(0, 20)}</span>
+          {/* сократим длину на всякий случай */}
+        </React.Fragment>
+      ))
+      .slice(0, 6);
   const token = useSelector((state: IStateUser) => state.user.user.token);
   return (
     <div className="article">
@@ -38,7 +40,7 @@ const Article = (props: { article: IArticle }) => {
         <div>
           <div className="article-top">
             <Link to={`/articles/${slug}`} state={{ item: props.article }}>
-              <span className="article-title">{title}</span>
+              <span className="article-title">{title.slice(0, 40)}</span>
             </Link>
             <span
               onClick={() => {
@@ -81,7 +83,7 @@ const Article = (props: { article: IArticle }) => {
           </div>
         </div>
       </div>
-      <div className="article-description">{description}</div>
+      <div className="article-description">{description.slice(0, 200)}</div>
     </div>
   );
 };
