@@ -15,7 +15,6 @@ const SignUpForm = () => {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
     watch,
   } = useForm<ISignUp>({ mode: "onSubmit" });
   const onSubmit = handleSubmit(async (data) => {
@@ -27,7 +26,7 @@ const SignUpForm = () => {
       },
     };
     const res = await fetchregisterUser(user);
-    if (!res.ok) {
+    if (errors) {
       alert(message(res));
     } else {
       navigate("/articles");

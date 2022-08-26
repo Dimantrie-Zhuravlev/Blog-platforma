@@ -16,35 +16,25 @@ const SignInForm = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const inLogin = async (user: {
-    user: {
-      email: string;
-      password: string;
-    };
-  }) => {
-    fetchExistingUser(user).then((res) => {
-      console.log(res);
-      dispatch(fetchGetUserInfo(res.user.token));
-      return navigate(`/articles`);
-    });
-  };
-
   const {
     register,
     formState: { errors },
     handleSubmit,
-    reset,
   } = useForm<ISignIn>({ mode: "onSubmit" });
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     const user = {
       user: {
         email: data.email,
         password: data.password,
       },
     };
-    console.log(user);
-    inLogin(user);
-    reset();
+    const resp = await fetchExistingUser(user);
+    if (resp.errors) {
+      alert("Email or password is invalid");
+    } else {
+      dispatch(fetchGetUserInfo(resp.user.token));
+      navigate(`/articles`);
+    }
   });
   return (
     <div className="SignIn-container">
@@ -72,7 +62,7 @@ const SignInForm = () => {
         <label style={{ marginBottom: "21px" }}>
           Password
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             className={cn({ "error-input": errors?.password?.message })}
             {...register("password", {

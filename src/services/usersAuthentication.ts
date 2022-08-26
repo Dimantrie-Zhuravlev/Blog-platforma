@@ -25,9 +25,7 @@ export const fetchExistingUser = (user: IPostexhistingUser) =>
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify(user),
-  })
-    .then((res) => res.json())
-    .then((res) => res);
+  }).then((res) => res.json());
 
 export const fetchGetUserInfo = createAsyncThunk<IPostUserResponse, string>(
   "users/usersInfo",
