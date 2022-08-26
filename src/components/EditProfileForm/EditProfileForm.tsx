@@ -8,8 +8,6 @@ import { IStateUser } from "../../types/StateRedux";
 import { fetchEditProfile } from "../../services/usersAuthentication";
 import avatar from "../../img/ahm1P-1bYv4.jpg";
 
-import user from "./helperElements";
-
 import "./EditProfileForm.scss";
 
 const EditProfileForm = () => {
@@ -27,10 +25,19 @@ const EditProfileForm = () => {
     reset,
   } = useForm<IEditProfile>({ mode: "onSubmit" });
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
+    const resFetch = Object.fromEntries(
+      Object.entries(data).filter((elem) => elem[1] !== "")
+    );
 
     const res = await fetchEditProfile(
-      user(data.username, data.email, data.password, data.avatarUrl),
+      {
+        user: {
+          username: resFetch.username,
+          email: resFetch.email,
+          password: resFetch.password,
+          image: resFetch.image,
+        },
+      },
       token
     );
     if (res.errors) {
@@ -129,10 +136,10 @@ const EditProfileForm = () => {
               type="text"
               placeholder="Avatar Image"
               defaultValue={avatar}
-              {...register("avatarUrl")}
+              {...register("image")}
             />
           </label>
-          <div>{errors?.avatarUrl && <p>{"Passwords do not match!"}</p>}</div>
+          <div>{errors?.image && <p>{"Passwords do not match!"}</p>}</div>
           {/* submit */}
           <input
             type="submit"

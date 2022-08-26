@@ -16,9 +16,7 @@ export interface IPutEditProfile {
   user: {
     username: string;
     email: string;
-    token?: string;
     password?: string;
-    bio?: string;
     image?: string;
   };
 }
