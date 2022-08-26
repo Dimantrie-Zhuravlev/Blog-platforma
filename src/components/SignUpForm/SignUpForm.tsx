@@ -26,7 +26,7 @@ const SignUpForm = () => {
       },
     };
     const res = await fetchregisterUser(user);
-    if (errors) {
+    if (res.errors) {
       alert(message(res));
     } else {
       navigate("/articles");
