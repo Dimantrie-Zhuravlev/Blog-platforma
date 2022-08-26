@@ -28,13 +28,16 @@ const EditProfileForm = () => {
   } = useForm<IEditProfile>({ mode: "onSubmit" });
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
-    // пока не работает
 
-    await fetchEditProfile(
+    const res = await fetchEditProfile(
       user(data.username, data.email, data.password, data.avatarUrl),
       token
     );
-    reset();
+    if (res.errors) {
+      alert(JSON.stringify(res.errors));
+    } else {
+      reset();
+    }
   });
   return (
     <div className="edit-profile-container">
