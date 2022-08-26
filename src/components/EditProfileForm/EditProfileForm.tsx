@@ -26,10 +26,11 @@ const EditProfileForm = () => {
     handleSubmit,
     reset,
   } = useForm<IEditProfile>({ mode: "onSubmit" });
-  const onSubmit = handleSubmit((data) => {
+  const onSubmit = handleSubmit(async (data) => {
     console.log(data);
     // пока не работает
-    fetchEditProfile(
+
+    await fetchEditProfile(
       user(data.username, data.email, data.password, data.avatarUrl),
       token
     );

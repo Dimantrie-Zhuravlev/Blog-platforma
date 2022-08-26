@@ -12,7 +12,13 @@ export const userInfo = createSlice({
   initialState,
   reducers: {
     unLogin(state) {
-      state.user = { email: "", token: "", username: "", bio: "", image: "" };
+      state.user = {
+        email: "",
+        token: "",
+        username: "",
+        bio: "",
+        image: "",
+      };
     },
   },
   extraReducers: (builder) => {

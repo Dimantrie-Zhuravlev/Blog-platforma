@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
 
 import {
   IPostUser,
@@ -17,11 +16,7 @@ export const fetchregisterUser = (user: IPostUser) =>
     body: JSON.stringify(user),
   })
     .then((res) => res.json())
-    .then((res) => {
-      const navigate = useNavigate();
-      navigate("/sign-in");
-      return res;
-    });
+    .then((res) => res);
 
 export const fetchExistingUser = (user: IPostexhistingUser) =>
   fetch(`https://blog.kata.academy/api/users/login`, {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import cn from "classnames";
 
@@ -7,7 +7,10 @@ import "./SignUpForm.scss";
 import { ISignUp } from "../../types/FormTypes";
 import { fetchregisterUser } from "../../services/usersAuthentication";
 
+import { message } from "./errorMessage";
+
 const SignUpForm = () => {
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors },
@@ -15,9 +18,7 @@ const SignUpForm = () => {
     reset,
     watch,
   } = useForm<ISignUp>({ mode: "onSubmit" });
-  const onSubmit = handleSubmit((data) => {
-    alert(JSON.stringify(data));
-    console.log(data);
+  const onSubmit = handleSubmit(async (data) => {
     const user = {
       user: {
         username: data.username,
@@ -25,8 +26,12 @@ const SignUpForm = () => {
         password: data.password,
       },
     };
-    fetchregisterUser(user);
-    reset();
+    const res = await fetchregisterUser(user);
+    if (!res.ok) {
+      alert(message(res));
+    } else {
+      navigate("/articles");
+    }
   });
   return (
     <div className="SignUp-container">
@@ -86,7 +91,7 @@ const SignUpForm = () => {
         <label>
           Password
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             className={cn({ "error-input": errors?.password?.message })}
             {...register("password", {
@@ -111,7 +116,7 @@ const SignUpForm = () => {
         <label>
           Repeat Password
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             className={cn({ "error-input": errors?.passwordRepeat?.message })}
             {...register("passwordRepeat", {
