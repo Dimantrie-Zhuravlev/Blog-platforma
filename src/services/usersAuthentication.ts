@@ -49,8 +49,6 @@ export const fetchEditProfile = (user: IPutEditProfile, token: string) =>
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(user),
-  })
-    .then((res) => res.json())
-    .then((res) => res);
+  }).then((res) => res.json());
 
 export default fetchregisterUser;

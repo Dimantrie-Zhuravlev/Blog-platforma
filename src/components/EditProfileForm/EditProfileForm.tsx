@@ -1,16 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import cn from "classnames";
 
 import { IEditProfile } from "../../types/FormTypes";
 import { IStateUser } from "../../types/StateRedux";
 import { fetchEditProfile } from "../../services/usersAuthentication";
 import avatar from "../../img/ahm1P-1bYv4.jpg";
+import { editprofile } from "../../store/slices/userParametres";
 
 import "./EditProfileForm.scss";
 
 const EditProfileForm = () => {
+  const dispatch = useDispatch();
   const DefaultUserName = useSelector(
     (state: IStateUser) => state.user.user.username
   );
@@ -43,6 +45,7 @@ const EditProfileForm = () => {
     if (res.errors) {
       alert(JSON.stringify(res.errors));
     } else {
+      dispatch(editprofile(resFetch));
       reset();
     }
   });

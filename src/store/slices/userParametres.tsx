@@ -20,6 +20,9 @@ export const userInfo = createSlice({
         image: "",
       };
     },
+    editprofile(state, payload) {
+      state.user = { ...state.user, ...payload.payload };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -35,5 +38,5 @@ export const userInfo = createSlice({
   },
 });
 
-export const { unLogin } = userInfo.actions;
+export const { unLogin, editprofile } = userInfo.actions;
 export default userInfo.reducer;

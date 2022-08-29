@@ -45,9 +45,7 @@ export const fetchPostNewArticle = (body: IPostNewArticle, token: string) =>
       Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(body),
-  })
-    .then((res) => res.json())
-    .then((res) => res);
+  }).then((res) => res.json());
 // редактирование артикла
 export const fetchEditArticle = (
   body: IEditArticle,
@@ -70,6 +68,6 @@ export const fetchDeleteArticle = (token: string, slug: string) =>
       "Content-Type": "application/json;charset=utf-8",
       Authorization: `Bearer ${token}`,
     },
-  }).then((res) => res.json());
+  });
 
 export default fetchArticlesList;
