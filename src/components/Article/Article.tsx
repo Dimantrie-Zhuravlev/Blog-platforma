@@ -29,7 +29,6 @@ const Article = (props: { article: IArticle }) => {
       .map((elem) => (
         <React.Fragment key={`${author.username} ${Math.random()}`}>
           <span className="article-tag">{elem.slice(0, 20)}</span>
-          {/* сократим длину на всякий случай */}
         </React.Fragment>
       ))
       .slice(0, 6);

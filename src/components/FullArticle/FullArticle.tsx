@@ -52,7 +52,6 @@ const FullArticle = () => {
     tagList.map((elem) => (
       <React.Fragment key={elem}>
         <span className="article-tag">{elem.slice(0, 20)}</span>
-        {/* сократим длину на всякий случай */}
       </React.Fragment>
     ));
   useEffect(() => {

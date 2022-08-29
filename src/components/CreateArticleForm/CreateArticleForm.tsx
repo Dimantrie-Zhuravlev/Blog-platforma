@@ -111,12 +111,12 @@ const CreateArticleForm = () => {
                 message: "Your user name needs to be at least 1 characters.",
               },
               maxLength: {
-                value: 40,
+                value: 80,
                 message: "Your user name must be no more than 40 characters.",
               },
               pattern: {
                 // eslint-disable-next-line no-useless-escape
-                value: /^[a-z, а-я]{1,40}$/i,
+                value: /^[a-z, а-я]{1,80}$/i,
                 message: "invalid type pattern",
               },
             })}

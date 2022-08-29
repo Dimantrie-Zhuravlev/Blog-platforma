@@ -77,7 +77,7 @@ const SignUpForm = () => {
               required: "Поле обязательно к заполнению",
               pattern: {
                 // eslint-disable-next-line no-useless-escape
-                value: /^[\w-\.]+@[\w-]+\.[rucom]{2,3}$/i,
+                value: /^[a-z]+@[\w-]+\.[a-z]{2,5}$/i,
                 message: "invalid email address",
               },
             })}
@@ -147,7 +147,6 @@ const SignUpForm = () => {
           type="submit"
           className="sign-up-submit"
           value={`Create`}
-          // disabled={!isValid}
         ></input>
       </form>
 
