@@ -14,9 +14,7 @@ export const fetchregisterUser = (user: IPostUser) =>
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify(user),
-  })
-    .then((res) => res.json())
-    .then((res) => res);
+  });
 
 export const fetchExistingUser = (user: IPostexhistingUser) =>
   fetch(`https://blog.kata.academy/api/users/login`, {
@@ -25,7 +23,7 @@ export const fetchExistingUser = (user: IPostexhistingUser) =>
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify(user),
-  }).then((res) => res.json());
+  });
 
 export const fetchGetUserInfo = createAsyncThunk<IPostUserResponse, string>(
   "users/usersInfo",

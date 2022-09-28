@@ -25,7 +25,7 @@ const SignUpForm = () => {
         password: data.password,
       },
     };
-    const res = await fetchregisterUser(user);
+    const res = await (await fetchregisterUser(user)).json();
     if (res.errors) {
       alert(message(res));
     } else {

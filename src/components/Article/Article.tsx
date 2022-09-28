@@ -24,14 +24,15 @@ const Article = (props: { article: IArticle }) => {
   const [stateFavor, chengeStateFavor] = useState(favorited);
   const [likes, changeLikes] = useState(favoritesCount);
   const tags =
-    tagList &&
-    tagList
-      .map((elem) => (
-        <React.Fragment key={`${author.username} ${Math.random()}`}>
-          <span className="article-tag">{elem.slice(0, 20)}</span>
-        </React.Fragment>
-      ))
-      .slice(0, 6);
+    tagList.length === 0
+      ? tagList
+          .map((elem) => (
+            <React.Fragment key={`${author.username} ${Math.random()}`}>
+              <span className="article-tag">{elem.slice(0, 20)}</span>
+            </React.Fragment>
+          ))
+          .slice(0, 6)
+      : null;
   const token = useSelector((state: IStateUser) => state.user.user.token);
   return (
     <div className="article">

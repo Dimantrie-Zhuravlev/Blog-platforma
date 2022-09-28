@@ -28,7 +28,7 @@ const SignInForm = () => {
         password: data.password,
       },
     };
-    const resp = await fetchExistingUser(user);
+    const resp = await (await fetchExistingUser(user)).json();
     if (resp.errors) {
       alert("Email or password is invalid");
     } else {
